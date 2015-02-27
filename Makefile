@@ -11,6 +11,6 @@ hello-hdf5.bin: hello-hdf5.o
 hello-hdf5.o: hello-hdf5.cpp
 
 clean:
-	$(RM) hello-hdf5.bin hello-hdf5.o
+	$(RM) hello-hdf5.bin hello-hdf5.o test.h5
 
 .PHONY: all test default
