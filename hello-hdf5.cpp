@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <H5Cpp.h>
-#define DATATYPE H5::PredType::NATIVE_INT
+#define DATATYPE H5::PredType::NATIVE_DOUBLE
 
 // these can ben changed later
 const std::string FILENAME("test.h5"); 
@@ -12,15 +12,17 @@ const std::string PROPERTIESNAME("/elementProperties");
 const int TNDIMS = 1;
 const int NDIMS = 3;
 const int DIMS[] = {3,3,3};
+
+
 int main() {
-  int data[DIMS[0]][DIMS[1]][DIMS[2]];
-  int times[DIMS[0]];
-  int count = 0;
+  double data[DIMS[0]][DIMS[1]][DIMS[2]];
+  double times[DIMS[0]];
+  double count = 0.0;
   for (int i=0; i < DIMS[0]; i++) {
-    times[i] = i;
+    times[i] = 1.5*i;
     for (int j = 0; j < DIMS[1]; j++) {
       for (int k = 0; k < DIMS[2]; k++) {
-	count++;
+	count+=0.5;
 	data[i][j][k] = count;
 	}
     }
@@ -41,16 +43,18 @@ int main() {
   H5::IntType datatype(DATATYPE);
   H5::Group propertiesGroup(file.createGroup(PROPERTIESNAME));
   H5::Group dataGroup(file.createGroup(DATANAME));
-  H5::DataSet fieldDataset = dataGroup.createDataSet(FIELDNAME,
-						     datatype,
-						     fieldDataspace);
+  H5::DataSet fieldDataset =
+    dataGroup.createDataSet(FIELDNAME,
+			    datatype,
+			    fieldDataspace);
   fieldDataset.write(data,DATATYPE);
   fieldDataset.close();
   // The times
   H5::DataSpace timeDataspace(TNDIMS,dimst);
-  H5::DataSet timeDataset = dataGroup.createDataSet(TIMENAME,
-						    datatype,
-						    timeDataspace);
+  H5::DataSet timeDataset =
+    dataGroup.createDataSet(TIMENAME,
+			    datatype,
+			    timeDataspace);
   timeDataset.write(times,DATATYPE);
   timeDataset.close();
   file.close();
