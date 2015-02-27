@@ -139,6 +139,17 @@ int main() {
 		     DATATYPE,
 		     fieldDataspaceSource,
 		     fieldDataspaceDest);
+  propertiesGroup.close();
+  dataGroup.close();
+  fieldDataspace.close();
+  timeDataspace.close();
+  fieldDataspaceSource.close();
+  timeDataspaceSource.close();
+  timeDataspaceDest.close();
+  fieldDataspaceDest.close();
+  timeDataset.close();
+  fieldDataset.close();
   file.close();
   return 0;
 }
+#undef DATATYPE
